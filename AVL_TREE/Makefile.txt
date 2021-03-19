@@ -1,6 +1,6 @@
 all: AVLTree
 
-ArvoreRubroNegra: main.o AVLTree.o
+AVLTree: main.o AVLTree.o
 	gcc -o AVLTree main.o AVLTree.o
 
 main.o: main.c AVLTree.h
