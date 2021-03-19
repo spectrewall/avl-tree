@@ -99,25 +99,25 @@ noAVL *removeNo(noAVL *ArvoreAVL, int info)
 
     ArvoreAVL->altura = 1 + retornaMaior(retornaAltura(ArvoreAVL->esq), retornaAltura(ArvoreAVL->dir));
 
-    int retornaFatorBalanceamento = retornaFatorBalanceamento(ArvoreAVL);
+    int FatorBalanceamento = retornaFatorBalanceamento(ArvoreAVL);
 
     //esq esq Case
-    if (retornaFatorBalanceamento > 1 && retornaFatorBalanceamento(ArvoreAVL->esq) >= 0)
+    if (FatorBalanceamento > 1 && retornaFatorBalanceamento(ArvoreAVL->esq) >= 0)
         return rotacaoSimplesDir(ArvoreAVL);
 
     // dir dir Case
-    if (retornaFatorBalanceamento < -1 && retornaFatorBalanceamento(ArvoreAVL->dir) <= 0)
+    if (FatorBalanceamento < -1 && retornaFatorBalanceamento(ArvoreAVL->dir) <= 0)
         return rotacaoSimplesEsq(ArvoreAVL);
 
     // esq dir Case
-    if (retornaFatorBalanceamento > 1 && retornaFatorBalanceamento(ArvoreAVL->esq) < 0)
+    if (FatorBalanceamento > 1 && retornaFatorBalanceamento(ArvoreAVL->esq) < 0)
     {
         ArvoreAVL->esq = rotacaoSimplesEsq(ArvoreAVL->esq);
         return rotacaoSimplesDir(ArvoreAVL);
     }
 
     //dir esq Case
-    if (retornaFatorBalanceamento < -1 && retornaFatorBalanceamento(ArvoreAVL->dir) > 0)
+    if (FatorBalanceamento < -1 && retornaFatorBalanceamento(ArvoreAVL->dir) > 0)
     {
         ArvoreAVL->dir = rotacaoSimplesDir(ArvoreAVL->dir);
         return rotacaoSimplesEsq(ArvoreAVL);
@@ -141,25 +141,25 @@ noAVL *insereNO(noAVL *ArvoreAVL, int info)
 
     ArvoreAVL->altura = retornaMaior(retornaAltura(ArvoreAVL->esq), retornaAltura(ArvoreAVL->dir)) + 1;
 
-    int retornaFatorBalanceamento = retornaFatorBalanceamento(ArvoreAVL);
+    int FatorBalanceamento = retornaFatorBalanceamento(ArvoreAVL);
 
     // esq esq Case
-    if (retornaFatorBalanceamento > 1 && info < ArvoreAVL->esq->info)
+    if (FatorBalanceamento > 1 && info < ArvoreAVL->esq->info)
         return rotacaoSimplesDir(ArvoreAVL);
 
     // dir dir Case
-    if (retornaFatorBalanceamento < -1 && info > ArvoreAVL->dir->info)
+    if (FatorBalanceamento < -1 && info > ArvoreAVL->dir->info)
         return rotacaoSimplesEsq(ArvoreAVL);
 
     //esq dir Case
-    if (retornaFatorBalanceamento > 1 && info > ArvoreAVL->esq->info)
+    if (FatorBalanceamento > 1 && info > ArvoreAVL->esq->info)
     {
         ArvoreAVL->esq = rotacaoSimplesEsq(ArvoreAVL->esq);
         return rotacaoSimplesDir(ArvoreAVL);
     }
 
     // dir esq Case
-    if (retornaFatorBalanceamento < -1 && info < ArvoreAVL->dir->info)
+    if (FatorBalanceamento < -1 && info < ArvoreAVL->dir->info)
     {
         ArvoreAVL->dir = rotacaoSimplesDir(ArvoreAVL->dir);
         return rotacaoSimplesEsq(ArvoreAVL);
