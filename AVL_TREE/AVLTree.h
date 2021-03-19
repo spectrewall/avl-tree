@@ -24,7 +24,7 @@ noAVL *removeNo(noAVL *ArvoreAVL, int info); /*Remove um nó da árvore.*/
 noAVL *criaNo(int info);                     /*Cria um novo nó.*/
 
 /*Funções auxiliares*/
-void imprimeArvore(noAVL *arvore);               /*Imprime a arvore na tela.*/
+void imprimeArvore(noAVL *arvore, int cont);     /*Imprime a arvore na tela.*/
 noAVL *achaMenor(noAVL *ArvoreAVL);              /*Retorna o menor filho de um nó.*/
 int retornaAltura(noAVL *ArvoreAVL);             /*Retorna a altura do nó ou NULL caso não exista.*/
 int retornaFatorBalanceamento(noAVL *ArvoreAVL); /*Retorna o fator de balanceamento do nó ou NULL caso não exista.*/
