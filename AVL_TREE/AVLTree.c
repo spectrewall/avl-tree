@@ -84,16 +84,12 @@ noAVL *removeNo(noAVL *ArvoreAVL, int info)
 
         else if (ArvoreAVL->esq != NULL && ArvoreAVL->dir == NULL) //Verifica se possui um filho a esquerda.
         {
-            noAVL *novo = ArvoreAVL->esq; //Cria um nó auxiliar para não perder o acesso ao nó filho.
-            ArvoreAVL = ArvoreAVL->esq;   //Faz o nó atual receber as informações do filho.
-            free(novo);                   //Remove o nó auxiliar.
+            ArvoreAVL = ArvoreAVL->esq; //Faz o nó atual receber as informações do filho.
         }
 
         else if (ArvoreAVL->dir != NULL && ArvoreAVL->esq == NULL) //Verifica se possui um filho a direita.
         {
-            noAVL *novo = ArvoreAVL->dir; //Cria um nó auxiliar para não perder o acesso ao nó filho.
-            ArvoreAVL = ArvoreAVL->dir;   //Faz o nó atual receber as informações do filho.
-            free(novo);                   //Remove o nó auxiliar.
+            ArvoreAVL = ArvoreAVL->dir; //Faz o nó atual receber as informações do filho.
         }
 
         else //Caso o nó a ser removido possua filhos de ambos os lados.
