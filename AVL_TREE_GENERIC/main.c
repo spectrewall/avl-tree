@@ -73,7 +73,7 @@ int main()
 			ArvoreAVL = insereNo(ArvoreAVL, produto, compara);
 
 			aux = buscaNo(ArvoreAVL, produto, compara);
-			printFullInfo(aux->info);
+			imprimeNo(aux, printFullInfo);
 			break;
 
 		case 2:
@@ -83,7 +83,7 @@ int main()
 			fflush(stdin);
 
 			aux = buscaNo(ArvoreAVL, produto, compara);
-			printFullInfo(aux->info);
+			imprimeNo(aux, printFullInfo);
 
 			ArvoreAVL = removeNo(ArvoreAVL, produto, compara);
 			break;
@@ -95,7 +95,7 @@ int main()
 			fflush(stdin);
 
 			aux = buscaNo(ArvoreAVL, produto, compara);
-			printFullInfo(aux->info);
+			imprimeNo(aux, printFullInfo);
 			break;
 
 		case 4:
