@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*Estrutura para a Árvore AVL.*/
 typedef struct ArvoreAVL
@@ -22,9 +23,11 @@ typedef struct ArvoreAVL
 noAVL *insereNo(noAVL *ArvoreAVL, void *info, int (*compara)(void *, void *)); /*Insere um nó na árvore.*/
 noAVL *removeNo(noAVL *ArvoreAVL, void *info, int (*compara)(void *, void *)); /*Remove um nó da árvore.*/
 noAVL *criaNo(void *info);                                                     /*Cria um novo nó.*/
+noAVL *buscaNo(noAVL *ArvoreAVL, void *info, int (*compara)(void *, void *));  /*Busca um nó na árvore.*/
 
 /*Funções auxiliares*/
 void imprimeArvore(noAVL *arvore, int cont, void (*printInfo)(void *)); /*Imprime a arvore na tela.*/
+void imprimeNo(noAVL *arvore, void (*printInfo)(void *));               /*Imprime um unico nó.*/
 noAVL *achaMenor(noAVL *ArvoreAVL);                                     /*Retorna o menor filho de um nó.*/
 int retornaAltura(noAVL *ArvoreAVL);                                    /*Retorna a altura do nó ou 0 caso não exista o nó.*/
 int retornaFatorBalanceamento(noAVL *ArvoreAVL);                        /*Retorna o fator de balanceamento do nó ou 0 caso não exista o nó.*/

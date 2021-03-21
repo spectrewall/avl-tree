@@ -1,22 +1,43 @@
+/*************************************************************************************
+* Arquivo main.c para testar arvores AVL de tipo genérico.                           *
+* Aluno: Wallace Luiz Carvalho de Andrade                                            *
+*************************************************************************************/
+
 #include "AVLTree.h"
+
+typedef struct itemInfo
+{
+	char nome[50];
+	float preco;
+	float peso;
+} item;
 
 void printInfo(void *info)
 {
-	int *x = (int *)info;
-	printf("%d", *x);
+	item *x = (item *)info;
+	printf("%s", x->nome);
 }
 
-int compara(void *info1, void *info2)
+void printFullInfo(void *info)
 {
-	int *x = (int *)info1;
-	int *y = (int *)info2;
+	item *x = (item *)info;
+	printf("\nnome: %s", x->nome);
+	printf("\npreco R$: %.2f", x->preco);
+	printf("\npeso: %.4f", x->peso);
+}
 
-	if (*x > *y)
+int compara(void *info_1, void *info_2)
+{
+	item *x = (item *)info_1;
+	item *y = (item *)info_2;
+
+	int res;
+	res = strcmp(x->nome, y->nome);
+
+	if (res > 0)
 		return 1;
-
-	else if (*x < *y)
+	else if (res < 0)
 		return -1;
-
 	else
 		return 0;
 }
@@ -24,60 +45,74 @@ int compara(void *info1, void *info2)
 int main()
 {
 	noAVL *ArvoreAVL = NULL;
+	noAVL *aux = NULL;
+	int op = 0;
 
-	int *a1 = (int *)malloc(sizeof(int));
-	int *a2 = (int *)malloc(sizeof(int));
-	int *a3 = (int *)malloc(sizeof(int));
-	int *a4 = (int *)malloc(sizeof(int));
-	int *a5 = (int *)malloc(sizeof(int));
-	int *a6 = (int *)malloc(sizeof(int));
-	int *a7 = (int *)malloc(sizeof(int));
-	int *a8 = (int *)malloc(sizeof(int));
-	int *a9 = (int *)malloc(sizeof(int));
-	int *a10 = (int *)malloc(sizeof(int));
-	int *a11 = (int *)malloc(sizeof(int));
-	int *a12 = (int *)malloc(sizeof(int));
-	int *a13 = (int *)malloc(sizeof(int));
+	while (op != 5)
+	{
+		item *produto;
 
-	*a1 = 10;
-	*a2 = 9;
-	*a3 = 3;
-	*a4 = 7;
-	*a5 = 6;
-	*a6 = 5;
-	*a7 = 4;
-	*a8 = 3;
-	*a9 = 2;
-	*a10 = 1;
-	*a11 = 11;
-	*a12 = 12;
-	*a13 = 13;
+		printf("\n\n--- MENU ---\n\n1 - Inserir item\n2 - Remover item\n3 - Buscar item\n4 - Imprimir a arvore\n5 - Sair\nDigite sua opcao: ");
+		scanf("%d", &op);
+		fflush(stdin);
 
-	ArvoreAVL = insereNo(ArvoreAVL, a13, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a1, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a2, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a3, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a4, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a5, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a6, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a7, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a8, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a9, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a10, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a11, compara);
-	ArvoreAVL = insereNo(ArvoreAVL, a12, compara);
+		switch (op)
+		{
+		case 1:
+			produto = (item *)malloc(sizeof(item));
+			printf("\nDigite o nome do produto: ");
+			scanf("%s", produto->nome);
+			fflush(stdin);
+			printf("Digite o valor (em R$) do produto: ");
+			scanf("%f", &produto->preco);
+			fflush(stdin);
+			printf("Digite o peso do produto: ");
+			scanf("%f", &produto->peso);
+			fflush(stdin);
 
-	printf("\n\n");
-	imprimeArvore(ArvoreAVL, 0, printInfo);
+			ArvoreAVL = insereNo(ArvoreAVL, produto, compara);
 
-	ArvoreAVL = removeNo(ArvoreAVL, a4, compara);
-	ArvoreAVL = removeNo(ArvoreAVL, a13, compara);
-	ArvoreAVL = removeNo(ArvoreAVL, a9, compara);
-	ArvoreAVL = removeNo(ArvoreAVL, a10, compara);
-	ArvoreAVL = removeNo(ArvoreAVL, a3, compara);
+			aux = buscaNo(ArvoreAVL, produto, compara);
+			printFullInfo(aux->info);
+			break;
 
-	printf("\n\n");
-	imprimeArvore(ArvoreAVL, 0, printInfo);
+		case 2:
+			produto = (item *)malloc(sizeof(item));
+			printf("\nDigite o nome do produto que deseja remover: ");
+			scanf("%s", produto->nome);
+			fflush(stdin);
+
+			aux = buscaNo(ArvoreAVL, produto, compara);
+			printFullInfo(aux->info);
+
+			ArvoreAVL = removeNo(ArvoreAVL, produto, compara);
+			break;
+
+		case 3:
+			produto = (item *)malloc(sizeof(item));
+			printf("\nDigite o nome do produto que deseja buscar: ");
+			scanf("%s", produto->nome);
+			fflush(stdin);
+
+			aux = buscaNo(ArvoreAVL, produto, compara);
+			printFullInfo(aux->info);
+			break;
+
+		case 4:
+			printf("\n\n---------------------------------\n\n");
+			imprimeArvore(ArvoreAVL, 0, printInfo);
+			printf("\n\n---------------------------------\n\n");
+			break;
+
+		case 5:
+			printf("\n\n ATE A PROXIMA... \n\n");
+			break;
+
+		default:
+			printf("\n\n *** ENTRE COM UMA OPCAO VALIDA *** \n\n");
+			break;
+		}
+	}
 
 	return 0;
 }

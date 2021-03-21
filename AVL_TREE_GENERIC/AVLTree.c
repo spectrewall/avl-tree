@@ -1,3 +1,8 @@
+/*************************************************************************************
+* Arquivo AVLtree.c para trabalhar com arvores AVL de tipo genérico                  *
+* Aluno: Wallace Luiz Carvalho de Andrade                                            *
+*************************************************************************************/
+
 #include "AVLTree.h"
 
 /*Retorna o maior valor entre dois inteiros*/
@@ -198,4 +203,32 @@ noAVL *rotacaoSimplesDir(noAVL *no_A)
     no_B->altura = retornaMaior(retornaAltura(no_B->esq), retornaAltura(no_B->dir)) + 1; /*Atualiza a altura do nó B (nova raiz da sub arvore).*/
 
     return no_B; /*Retorna a nova raiz.*/
+}
+
+/*Busca um nó na árvore*/
+noAVL *buscaNo(noAVL *ArvoreAVL, void *info, int (*compara)(void *, void *))
+{
+    if (ArvoreAVL == NULL)
+        return ArvoreAVL;                                   /*Retorna um nó nulo caso a arvore seja nula ou o nó não seja encontrado.*/
+    if (compara(info, ArvoreAVL->info) == -1)               /*Verifica se a informação a ser buscada é menor que a do nó atual.*/
+        ArvoreAVL = buscaNo(ArvoreAVL->esq, info, compara); /*Percorre a árvore para a esquerda.*/
+
+    else if (compara(info, ArvoreAVL->info) == 1)           /*Verifica se a informação a ser buscada é maior que a do nó atual.*/
+        ArvoreAVL = buscaNo(ArvoreAVL->dir, info, compara); /*Percorre a árvore para a direita.*/
+    else
+        return ArvoreAVL; /*Retorna o nó casa encontrado*/
+
+    return ArvoreAVL;
+}
+
+void imprimeNo(noAVL *arvore, void (*printInfo)(void *))
+{
+    if (arvore != NULL)
+    {
+        printf("\nInfo:\n");
+        printInfo(arvore->info);
+        printf("\n");
+    }
+    else
+        printf("O valor nao existe na arvore");
 }
